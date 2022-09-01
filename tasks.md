@@ -31,7 +31,7 @@ SELECT * FROM public.divisions WHERE country = 'Scotland';
 ```sql
 <!-- Copy solution here -->
 
-SELECT count(*) FROM matches WHERE hometeam='Freiburg' AND division_code LIKE 'D%' OR awayteam='Freiburg' AND division_code LIKE 'D%';
+SELECT count(*) FROM matches WHERE hometeam='Freiburg' AND division_code = 'D1' OR awayteam='Freiburg' AND division_code = 'D1';
 ```
 
 5) Find the unique names of the teams which include the word "City" in their name (as entered in the database)
@@ -63,7 +63,7 @@ SELECT * FROM public.matches WHERE awayteam = 'Swansea' AND hometeam = 'Huddersf
 ```sql
 <!-- Copy solution here -->
 
-SELECT COUNT(awayteam) FROM public.matches WHERE division_code = 'N1' AND ftag = fthg AND (season = 2010 OR season = 2011 OR season = 2012 OR season = 2013 OR season = 2014 OR season = 2015);
+SELECT COUNT(awayteam) FROM public.matches WHERE division_code = 'N1' AND ftr = 'D' AND (season = 2010 OR season = 2011 OR season = 2012 OR season = 2013 OR season = 2014 OR season = 2015);
 ```
 
 9) Select the matches played in the Premier League in order of total goals scored from highest to lowest. Where there is a tie the match with more home goals should come first.
@@ -71,14 +71,14 @@ SELECT COUNT(awayteam) FROM public.matches WHERE division_code = 'N1' AND ftag =
 ```sql
 <!-- Copy solution here -->
 
-SELECT * FROM public.matches WHERE division_code = 'E0' ORDER BY ftag + fthg DESC;
+SELECT * FROM public.matches WHERE division_code = 'E0' ORDER BY (ftag + fthg) DESC, fthg DESC;
 ```
 
 10) In which division and which season were the most goals scored?
 
 ```sql
 <!-- Copy solution here -->
-
+SELECT division_code, season , SUM(fthg + ftag) FROM public.matches GROUP BY division_code, season ORDER BY sum DESC LIMIT 1;
 
 ```
 
